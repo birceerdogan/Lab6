@@ -1,0 +1,41 @@
+import math
+
+# Soru 1
+def factorial(x):
+    """Returns the factorial of x using recursion."""
+    if x == 0 or x == 1:
+        return 1
+    return x * factorial(x - 1)
+
+# Soru 2
+def sine_x(x, n):
+    """Approximates sin(x) using the Taylor series expansion up to n terms."""
+    x = math.radians(x)  
+
+    term = lambda n, x: ((-1) ** n * x ** (2 * n + 1)) / factorial(2 * n + 1)
+    result = 0
+    for i in range(n):
+        result += term(i, x)
+    return result
+
+# Soru 3
+harmonic_sum = 0 
+
+def harmonic(n):
+    """Calculates the harmonic number H_n recursively and updates global sum."""
+    global harmonic_sum
+    if n == 0:
+        return
+    harmonic(n - 1)
+    harmonic_sum += 1 / n
+if __name__ == "__main__":
+    x = int(input("Enter a number for factorial calculation: "))
+    print(f"Factorial of {x}: {factorial(x)}")
+    angle = float(input("Enter an angle (in degrees) for sin(x) approximation: "))
+    terms = int(input("Enter the number of terms for Taylor series approximation: "))
+    print(f"sin({angle}) approximation with {terms} terms: {sine_x(angle, terms)}")
+
+    n = int(input("Enter a number for harmonic number calculation: "))
+    harmonic_sum = 0  
+    harmonic(n)
+    print(f"Harmonic number H_{n}: {harmonic_sum}")
